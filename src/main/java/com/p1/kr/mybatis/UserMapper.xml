@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatismybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.p1.kr.mybatis.IMapperUser">
+	<select id="select" resultType="com.p1.kr.domain.LoginDomain" parameterType="hashMap">
+		select * from springp1.member where seq=#{seq};
+	</select>
+	<select id="AllList" resultType="com.p1.kr.domain.LoginDomain" parameterType="map">
+	    SELECT * FROM springp1.member order by mb_update_at desc limit #{offset}, #{contentnum}
+	</select>
+	<insert id="create" parameterType="com.p1.kr.domain.LoginDomain" >
+	   INSERT INTO springp1.member(id, pw, level, ip, used, createat, updateat)  
+	   VALUES (#{id}, #{pw}, #{level}, #{ip}, #{used}, now(), now())
+	</insert>
+	
+	<select id="getAll" resultType="int">
+	   SELECT COUNT(*) FROM springp1.member
+	</select>
+	<select id="getId" resultType="com.p1.kr.domain.LoginDomain" parameterType="hashMap">
+	   SELECT * FROM springp1.member WHERE id=#{id}
+	</select>
+	
+	<select id="checkDuplication" resultType="int" parameterType="hashMap">
+	   SELECT COUNT(*) FROM springp1.member WHERE id=#{id} AND pw=#{pw}
+	</select>
+
+	
+	<update id="update" parameterType="com.p1.kr.domain.LoginDomain">
+		UPDATE springp1.member SET
+		        pw=#{pw},
+		        level=#{level},
+	            ip=#{ip},
+	            used=#{used}, 
+	            updateat=now()  
+	    WHERE seq=#{seq}
+	</update>
+	
+	<delete id="remove" parameterType="hashMap">
+	   DELETE FROM springp1.member WHERE seq=#{seq}
+	</delete>
+</mapper>
