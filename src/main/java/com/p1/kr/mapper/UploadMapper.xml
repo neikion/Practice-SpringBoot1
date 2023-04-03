@@ -6,5 +6,76 @@
 	<select id="listboard" resultType="com.p1.kr.domain.DomainBoardList">
 	  SELECT seq, id, title, content, createat, updateat FROM springp1.board order by updateat desc
 	</select>
+	<insert id="uploadContent" parameterType="com.p1.kr.domain.DomainBoardContent"
+	useGeneratedKeys="true"
+        keyProperty="seq" keyColumn="seq">
+	
+        INSERT INTO springp1.board (id, title, content)
+        VALUES (
+            #{id},
+            #{title},
+            #{content}
+        )
+	</insert>
+	
+	<!-- file insert -->
+	<insert id="uploadFile" parameterType="com.p1.kr.domain.DomainBoardFile">
+        INSERT INTO springp1.filelist (
+            seq,
+            id,   
+            originalname,                         
+            newname,                      
+            filepath,                                   
+            filesize
+        )
+        VALUES (
+            #{seq},
+            #{id},
+            #{originalname},
+            #{newname},
+            #{path},
+            #{filesize}
+        )
+    </insert>
+    
+    <update id="updateContent" parameterType="com.p1.kr.domain.DomainBoardContent">
+        UPDATE springp1.board SET
+                seq=#{seq},
+                id=#{id},
+                title=#{title},
+                content=#{content}, 
+                updateat=now()  
+        WHERE seq=#{seq}
+    </update>
 
+    <update id="updateFile" parameterType="com.p1.kr.domain.DomainBoardFile">
+        UPDATE springp1.filelist SET
+                seq=#{seq},
+                id=#{id},
+                originalname=#{originalname},
+                newname=#{newname}, 
+                filepath=#{path},
+                filesize=#{filesize}
+        WHERE seq=#{seq}
+    </update>
+
+    <delete id="removeContent" parameterType="hashMap">
+       DELETE FROM springp1.board WHERE seq=#{seq}
+    </delete>
+	<!-- file delete -->
+    <delete id="removeFile" parameterType="com.p1.kr.domain.DomainBoardFile">
+	    DELETE FROM springp1.filelist WHERE newname = #{newname}
+	</delete>
+	
+
+	<select id="selectBoard" resultType="com.p1.kr.domain.DomainBoardList" parameterType="map">
+	    SELECT seq, id, title, content, createat, updateat
+	    FROM springp1.board where seq = #{seq}
+	</select>
+	
+
+	<select id="selectBoardFile" resultType="com.p1.kr.domain.DomainBoardFile" parameterType="map">
+	    SELECT seq, id, originalname, newname, filepath, filesize
+	    FROM springp1.vboard where seq = #{seq}
+	</select>
 </mapper>

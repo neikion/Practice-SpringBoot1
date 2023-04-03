@@ -54,8 +54,9 @@ public class ContollerUser {
 		return mv;
 		
 	}
-	@RequestMapping(value = "bdList")
-	public ModelAndView bdList() { 
+	
+	@RequestMapping(value = "List")
+	public ModelAndView moveBoardList() { 
 		ModelAndView mav = new ModelAndView();
 		List<DomainBoardList> items = serviceUpload.listboard();
 		mav.addObject("items", items);

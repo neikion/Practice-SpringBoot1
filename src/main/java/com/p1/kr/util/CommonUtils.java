@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class CommonUtils {
 	public static String currentTime() {
-		SimpleDateFormat sdate=new SimpleDateFormat();
+		SimpleDateFormat sdate=new SimpleDateFormat("yyyyMMddHHmmss",Locale.KOREA);
 		Date date=new Date();
 		return sdate.format(date);
 	}
