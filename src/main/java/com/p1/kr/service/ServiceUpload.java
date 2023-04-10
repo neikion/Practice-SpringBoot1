@@ -71,7 +71,6 @@ public class ServiceUpload implements IServiceUpload{
 				// 게시글 수정시 파일관련 물리저장 파일, db 데이터 삭제 
 				if(vo.getIsEdit() != null) { // 수정시 
 
-	
 					List<DomainBoardFile> fileList = null;
 					
 					
