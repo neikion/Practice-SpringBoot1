@@ -1,6 +1,7 @@
 package com.p1.kr.service;
 
 import java.io.File;
+import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,16 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.p1.kr.Exception.ExceptionRequest;
 import com.p1.kr.domain.DomainBoardContent;
 import com.p1.kr.domain.DomainBoardFile;
 import com.p1.kr.domain.DomainBoardList;
 import com.p1.kr.mybatis.IMapperUpload;
+import com.p1.kr.type.Code;
 import com.p1.kr.util.CommonUtils;
 import com.p1.kr.vo.VOFileList;
 
@@ -169,9 +173,11 @@ public class ServiceUpload implements IServiceUpload{
 									.filesize((int)mfile.getSize())
 									.build();
 								mapper.uploadFile(filedomain);
-						} catch (Exception e) {
-//							throw RequestException.fire(Code.E404, "잘못된 업로드 파일", HttpStatus.NOT_FOUND);
-							e.printStackTrace();
+						}catch (DirectoryNotEmptyException e) {
+							throw ExceptionRequest.fire(Code.E404, "잘못된 업로드 파일", HttpStatus.NOT_FOUND);
+						}
+						catch (Exception exception) {
+							exception.printStackTrace();
 						}
 					}
 
