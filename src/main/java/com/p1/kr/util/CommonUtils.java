@@ -42,7 +42,6 @@ public class CommonUtils {
 	public static void redirect(String text,String path, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out=response.getWriter();
-		ModelAndView mav=new ModelAndView();
 		//test
 		out.println("<script>alert('"+ text +"'); location.href='" + path + "'</script>");
 		out.flush();
