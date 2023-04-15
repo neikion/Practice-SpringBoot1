@@ -64,4 +64,36 @@ public class ContollerUser {
 		return mav; 
 	}
 	
+	@RequestMapping(value = "mylist")
+	public ModelAndView moveMyBoardList() { 
+		ModelAndView mav = new ModelAndView();
+		List<DomainBoardList> items = serviceUpload.listboard();
+		mav.addObject("items", items);
+		mav.setViewName("myboard/myboard.html");
+		return mav; 
+	}
+	
+	@RequestMapping(value="myboard")
+	public ModelAndView mylogin(VOLogin loginDTO, HttpServletRequest request, HttpServletResponse response) throws IOException{
+		ModelAndView mv=new ModelAndView();
+		HttpSession session=request.getSession();
+		Map<String, String> map=new HashMap();
+		map.put("id", loginDTO.getId());
+		map.put("pw",loginDTO.getPw());
+		LoginDomain domain=serviceUser.getId(map);
+		if(serviceUser.checkDuplication(map)==0) {
+			String text="없는 아이디 또는 패스워드가 잘못되었습니다.";
+			CommonUtils.redirect(text, "/main/signin", response);
+			return mv;
+		}
+		session.setAttribute("ip", CommonUtils.getCrilentIP(request));
+		session.setAttribute("id", domain.getId());
+		session.setAttribute("level", domain.getLevel());
+		List<DomainBoardList> item=serviceUpload.listboard();
+		mv.addObject("items",item);
+		mv.setViewName("myboard/myboard.html");
+		return mv;
+		
+	}
+	
 }
