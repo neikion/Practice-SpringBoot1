@@ -6,7 +6,7 @@
 		select * from springp1.member where seq=#{seq};
 	</select>
 	<select id="AllList" resultType="com.p1.kr.domain.LoginDomain" parameterType="map">
-	    SELECT * FROM springp1.member order by mb_update_at desc limit #{offset}, #{contentnum}
+	    SELECT * FROM springp1.member order by updateat desc limit #{offset}, #{pageNum}
 	</select>
 	<insert id="create" parameterType="com.p1.kr.domain.LoginDomain" >
 	   INSERT INTO springp1.member(id, pw, level, ip, used, createat, updateat)  

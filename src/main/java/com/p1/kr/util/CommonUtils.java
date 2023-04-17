@@ -17,7 +17,7 @@ public class CommonUtils {
 		Date date=new Date();
 		return sdate.format(date);
 	}
-	public static String getCrilentIP(HttpServletRequest request) {
+	public static String getClientIP(HttpServletRequest request) {
 		String ip=request.getHeader("X-Forwarded-for");
 		if(ip==null) {
 			ip=request.getHeader("Proxy-Client-IP");

@@ -36,7 +36,7 @@ public class AllExceptionHandler {
 				.reqNo(exception.getReqNo())
 				.httpStatus(exception.getHttpStatus())
 				.build();
-		
+		exception.printStackTrace();
 		return new ResponseEntity<ExceptionResponse>(errRes, errRes.getHttpStatus());
 	}
 	
@@ -45,6 +45,7 @@ public class AllExceptionHandler {
 	@ExceptionHandler(InternalServerError.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public HttpEntity<ExceptionResponse> handelerInternalServerError(ExceptionInternal exception) {
+		exception.printStackTrace();
 		ExceptionResponse errRes = ExceptionResponse.builder()
 				.result(exception.getCode().getResult())
 				.resultDesc(exception.getCode().getResultDesc())
@@ -57,6 +58,7 @@ public class AllExceptionHandler {
 	// error page
 	@ExceptionHandler(Exception.class)
 	public ModelAndView commonException(Exception e) {
+		e.printStackTrace();
 		e.getStackTrace();
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("exception", e.getStackTrace());

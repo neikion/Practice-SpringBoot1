@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 
 public class pagination {
 	public static Map<String,Object> pagination(int count, HttpServletRequest request) {
 		Map<String,Object> map = new HashMap<String,Object>();
-
 		String pnum = request.getParameter("page");
 		if (pnum == null) { pnum = "1"; }
 		
@@ -33,13 +34,12 @@ public class pagination {
 		
 
 		int offset = (rowNUM - 1) * 10;
-	
+		
 		map.put("rowNUM", rowNUM);
 		map.put("pageNum", pagelimit);
 		map.put("startpage", startpage);
 		map.put("endpage", endpage);
 		map.put("offset", offset);
-
 		return map;
 	}
 }
