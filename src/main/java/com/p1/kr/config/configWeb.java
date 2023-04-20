@@ -47,5 +47,6 @@ public class configWeb implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/upload/**").addResourceLocations("file:///C:/upload/");
+		registry.addResourceHandler("/resources/myupload/**").addResourceLocations("file:///C:/myupload/");
 	}
 }

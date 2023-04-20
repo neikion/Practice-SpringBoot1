@@ -2,6 +2,8 @@ package com.p1.kr.util;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -39,6 +41,26 @@ public class CommonUtils {
 		}
 		return ip;
 	}
+	
+	public static String getLocalMacAddress() {
+	 	String result = "";
+		InetAddress ip;
+		try {
+			ip = InetAddress.getLocalHost();
+			NetworkInterface net = NetworkInterface.getByInetAddress(ip);
+			byte[] macadd = net.getHardwareAddress();
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < macadd.length; i++) {
+				sb.append(String.format("%02X%s", macadd[i], (i < macadd.length - 1) ? "-" : ""));
+			}
+			result = sb.toString();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		    
+		return result;
+	 }
+	
 	public static void redirect(String text,String path, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out=response.getWriter();

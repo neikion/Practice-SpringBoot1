@@ -2,7 +2,6 @@ package com.p1.kr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 
 @SpringBootApplication
 public class Main{

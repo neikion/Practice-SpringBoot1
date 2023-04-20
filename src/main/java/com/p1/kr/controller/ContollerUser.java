@@ -58,6 +58,7 @@ public class ContollerUser {
 		session.setAttribute("ip", CommonUtils.getClientIP(request));
 		session.setAttribute("id", domain.getId());
 		session.setAttribute("level", domain.getLevel());
+		session.setAttribute("mac", CommonUtils.getLocalMacAddress());
 		List<DomainBoardList> item=serviceUpload.listboard();
 		mv.addObject("items",item);
 		mv.setViewName("board/boardlist.html");
@@ -79,7 +80,7 @@ public class ContollerUser {
 	public ModelAndView UserList(HttpServletRequest request) {	
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
-		String page = session.getAttribute("page").toString(); // session에 담고 있는 page 꺼냄
+		String page = (String)session.getAttribute("page"); // session에 담고 있는 page 꺼냄
 		if(page == null)page = "1"; // 없으면 1
 		
 		//클릭페이지 세션에 담아줌
@@ -282,55 +283,5 @@ public class ContollerUser {
 		return mav;
 	}
 	
-	@RequestMapping(value = "mylist")
-	public ModelAndView moveMyBoardList() { 
-		ModelAndView mav = new ModelAndView();
-		List<DomainBoardList> items = serviceUpload.listboard();
-		mav.addObject("items", items);
-		mav.setViewName("myboard/myboard.html");
-		return mav; 
-	}
 	
-	@RequestMapping(value="myboard")
-	public ModelAndView mylogin(VOLogin loginDTO, HttpServletRequest request, HttpServletResponse response) throws IOException{
-		ModelAndView mv=new ModelAndView();
-		HttpSession session=request.getSession();
-		Map<String, String> map=new HashMap();
-		map.put("id", loginDTO.getId());
-		map.put("pw",loginDTO.getPw());
-		LoginDomain domain=serviceUser.getId(map);
-		if(serviceUser.checkDuplication(map)==0) {
-			String text="없는 아이디 또는 패스워드가 잘못되었습니다.";
-			CommonUtils.redirect(text, "/main/signin", response);
-			return mv;
-		}
-		session.setAttribute("ip", CommonUtils.getClientIP(request));
-		session.setAttribute("id", domain.getId());
-		session.setAttribute("level", domain.getLevel());
-		List<DomainBoardList> item=serviceUpload.listboard();
-		mv.addObject("items",item);
-		mv.setViewName("myboard/myboard.html");
-		return mv;
-		
-	}
-	
-//	public ModelAndView SelectOne(@ModelAttribute("vo") VOFileList vo, String seq, HttpServletRequest request) {
-//		ModelAndView mav = new ModelAndView();
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		HttpSession session = request.getSession();
-//		
-//		map.put("seq", Integer.parseInt(seq));
-//		List<DomainBoardFile> fileList =  serviceUpload.selectBoardFile(map);
-//		if(fileList.size()>0) {
-//			DomainBoardFile file=fileList.get(0);
-//			String path = file.getPath().replaceAll("\\\\", "/");
-//			file.setPath(path);
-//			mav.addObject("files", file);
-//		}
-//		//삭제시 사용할 용도
-//		session.setAttribute("files", fileList);
-//
-//		return mav;
-//	}
-//	
 }

@@ -8,7 +8,7 @@
 </div>
 
 <div class="title" style="color:#00a2be">보드 리스트</div>
-<form role="form" th:object=${VOFileList} th:action="@{editSave}" method="post" enctype="multipart/form-data">
+<form role="form" th:object=${VOMyFileList} th:action="@{myupload}" method="post" enctype="multipart/form-data">
     <div class="section form">
        <table>
         <colgroup>
@@ -20,7 +20,7 @@
 	            <th>제목</th>
                 <td>
                 
-                    <input type="hidden" th:field="*{seq}" />
+                    <input type="hidden" th:field="*{boardid}" />
                     
                     <input type="hidden" th:field="*{isEdit}"/>
                     <input type="text" th:field="*{title}" placeholder="제목" required/>

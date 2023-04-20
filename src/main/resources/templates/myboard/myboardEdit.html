@@ -11,7 +11,6 @@
            history.go(1);
        }
     </script>
-    
 </th:block>
 
 <head>
@@ -20,7 +19,7 @@
 
 <div th:if=${session.id} layout:fragment="content">
     <div class="container">
-        <th:block th:include="myboard/mywriter.html"></th:block>
+        <th:block th:include="myboard/myeditForm.html"></th:block>
         <th:block th:include="myboard/mylist.html"></th:block>
     </div>
 </div>

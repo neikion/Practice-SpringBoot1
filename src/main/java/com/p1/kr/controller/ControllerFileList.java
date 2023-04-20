@@ -39,13 +39,13 @@ public class ControllerFileList {
 		vo.setContent(""); //초기화
 		vo.setTitle(""); //초기화
 		
-		mav = SelectOne(vo, String.valueOf(seq),request);
+		mav = selectOne(vo, String.valueOf(seq),request);
 		mav.setViewName("board/boardList.html");
 		return mav;
 	}
 	
 	//board and file select
-	public ModelAndView SelectOne(@ModelAttribute("vo") VOFileList vo, String seq, HttpServletRequest request) {
+	public ModelAndView selectOne(@ModelAttribute("vo") VOFileList vo, String seq, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		HttpSession session = request.getSession();
@@ -69,8 +69,8 @@ public class ControllerFileList {
 	@GetMapping("detail")
     public ModelAndView getDetail(@ModelAttribute("vo") VOFileList vo, @RequestParam("seq") String seq, HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		//하나파일 가져오기
-		mav = SelectOne(vo, seq,request);
+		//파일 하나 가져오기
+		mav = selectOne(vo, seq,request);
 		mav.setViewName("board/boardList.html");
 		return mav;
 	}
@@ -110,7 +110,7 @@ public class ControllerFileList {
 		
 		service.fileProcess(vo, request, httpReq);
 		
-		mav = SelectOne(vo, vo.getSeq(),request);
+		mav = selectOne(vo, vo.getSeq(),request);
 		vo.setContent(""); //초기화
 		vo.setTitle(""); //초기화
 		mav.setViewName("board/boardList.html");

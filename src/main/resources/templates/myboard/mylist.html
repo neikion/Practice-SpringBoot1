@@ -3,19 +3,19 @@
 
 <script type="text/javascript">
 function showImage(div){
-	div.querySelector(".preview").style.display="block";
+	div.parentNode.querySelector(".preview").style.display="block";
 }
 function hiddenImage(div){
-	div.querySelector(".preview").style.display="none";
+	div.parentNode.querySelector(".preview").style.display="none";
 }
 </script>
-    <table  >
+    <table>
+    
         <th:block th:if="${items}">
             <colgroup>
                 <col style="width: 5%"/>
                 <col style="width: 50%"/>
                 <col style="width: 10%"/>
-                <col style="width: 15%"/>
                 <col style="width: 15%"/>
             </colgroup>
             <thead>
@@ -23,35 +23,36 @@ function hiddenImage(div){
                     <th>글번호</th>
                     <th>제목</th>
                     <th>아이디</th>
-                    <th>등록일</th>
-                    <th>수정일</th>
+                    <th>작성일</th>
                 </tr>
             </thead>
             <tbody>
               
               <tr th:each="item : ${items}" >
-                  <td th:text="${item.seq}"></td>
-                  <td onmouseover="showImage(this)" onmouseout="hiddenImage(this)">
-                  	<a th:text="${item.title}" th:href="@{/detail(seq = ${item.seq})}"/>
-                  	<a th:href="@{/detail(seq = ${item.seq})}">
-                  		<img class="preview" src="http://localhost:8080/main/resources/upload/t3.jpg" style="max-width:800px;max-height:100px;margin-top:1%; margin-left:auto;margin-right:auto;display:none;" alt/>
-                  	</a>
+                  <td th:text="${item.boardid}"></td>
+                  <td>
+                  <div onmouseover="showImage(this)" onmouseout="hiddenImage(this)">
+                  	<a th:text="${item.title}" th:href="@{/mydetail(boardid = ${item.boardid})}"/>
+                  </div>
+                  <div  th:if="${item.newname}">
+	                  	<a  th:href="@{/mydetail(boardid = ${item.boardid})}">
+	                  		<img class="preview" th:src="@{${item.newname}}" style="max-width:800px;max-height:100px;margin-top:1%; margin-left:auto;margin-right:auto;display:none;" alt/>
+	                  	</a>
+                  </div>
                   </td>
-                  <td th:text="${item.id}"></td>
+                  <td th:text="${item.author}"></td>
                   <td th:text="${item.createat}"></td>
-                  <td th:text="${item.updateat}"></td>
               </tr>
 	        </th:block>
         </tbody>
     </table>
     
-    <th:block th:if="${detail}">   
+    <th:block th:if="${detail}">
         <h1 style="padding: 30px 0;" th:text="${detail.title}"></h1>
          <div style="text-align: right;">
-            <span style="color: #00a2be;">글번호 </span> <span th:text="${detail.seq}"></span> <span style="color: #00a2be"> | </span>
-            <span style="color: #00a2be">글쓴이 </span> <span th:text="${detail.id}"></span> <span style="color: #00a2be"> | </span> 
-            <span th:text="${detail.createat}"></span> <span style="color: #00a2be"> | </span> 
-            <span th:text="${detail.updateat}"></span> 
+            <span style="color: #00a2be;">글번호 </span> <span th:text="${detail.boardid}"></span> <span style="color: #00a2be"> | </span>
+            <span style="color: #00a2be">글쓴이 </span> <span th:text="${detail.author}"></span> <span style="color: #00a2be"> | </span> 
+            <span th:text="${detail.createat}"></span> <span style="color: #00a2be"/>
         </div>
         
         <div>
@@ -62,11 +63,11 @@ function hiddenImage(div){
         </div>
 
         <div style="padding: 30px 0; text-align:right;">
-        	<th:block th:if="${detail.id == session.id}">
-		    	<a th:href="@{/edit(seq = ${detail.seq})}"><button>수정</button></a>
-            	<a th:href="@{/remove(seq = ${detail.seq})}"><button>삭제</button></a>
+        	<th:block th:if="${detail.author == session.id}">
+		    	<a th:href="@{/myedit(boardid = ${detail.boardid})}"><button>수정</button></a>
+            	<a th:href="@{/myremove(boardid = ${detail.boardid})}"><button>삭제</button></a>
             </th:block>
-            <a th:href="@{List}"><button style="background-color: #00a2be; color: white; margin-left: 20px">목록으로</button></a>
+            <a th:href="@{mylist}"><button style="background-color: #00a2be; color: white; margin-left: 20px">목록으로</button></a>
         </div>
         
     </th:block>
