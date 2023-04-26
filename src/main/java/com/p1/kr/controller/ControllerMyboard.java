@@ -76,7 +76,6 @@ public class ControllerMyboard {
 		int boardid = serviceBoard.uploadFile(vo, request, httpreq);
 		vo.setContent(""); //초기화
 		vo.setTitle(""); //초기화
-		
 		mav = selectOne(vo, String.valueOf(boardid),request);
 		mav.setViewName("myboard/myboard.html");
 		return mav;
@@ -103,17 +102,6 @@ public class ControllerMyboard {
 		return mav;
 	}
 	
-//	@PostMapping("myeditSave")
-//	public ModelAndView saveEditDetail(@ModelAttribute("vo") VOMyFileList vo, MultipartHttpServletRequest request, HttpServletRequest httpReq) throws Exception {
-//		ModelAndView mav = new ModelAndView();
-//		serviceBoard.uploadFile(vo, request, httpReq);
-//		
-//		mav = selectOne(vo, vo.getBoardid(),request);
-//		vo.setContent(""); //초기화
-//		vo.setTitle(""); //초기화
-//		mav.setViewName("myboard/myboard.html");
-//		return mav;
-//	}
 	@GetMapping("myremove")
 	public ModelAndView removeDetail(@RequestParam("boardid") String boardid, HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -121,12 +109,10 @@ public class ControllerMyboard {
 		HttpSession session = request.getSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int id=Integer.parseInt(boardid);
-		//map.put("seq", Integer.parseInt(seq));
-		
 		serviceBoard.removeFiles(id);
 		//내용삭제
 		serviceBoard.removeContent(id);
-
+		
 //		mav = getBoardList();
 		mav.setViewName("redirect:/mylist");
 		
