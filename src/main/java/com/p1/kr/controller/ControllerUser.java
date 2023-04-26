@@ -67,7 +67,7 @@ public class ControllerUser {
 	}
 	
 	@RequestMapping(value = "List")
-	public ModelAndView moveBoardList() { 
+	public ModelAndView moveBoardList() {
 		ModelAndView mav = new ModelAndView();
 		List<DomainBoardList> items = serviceUpload.listboard();
 		mav.addObject("items", items);
@@ -215,7 +215,7 @@ public class ControllerUser {
 				mav.setViewName("redirect:/UserList?page=1");
 			}
 		}
-		
+		session.setAttribute("mac", CommonUtils.getLocalMacAddress());
 		return mav;
 
 	};
