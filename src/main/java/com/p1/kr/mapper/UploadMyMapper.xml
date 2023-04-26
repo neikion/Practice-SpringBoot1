@@ -44,16 +44,6 @@
                 createat=now()  
         WHERE boardid=#{boardid}
     </update>
-	<!--
-    <update id="updateFile" parameterType="com.p1.kr.domain.DomainMyBoardFile">
-        UPDATE springp1.myfilelist SET
-                originname=#{originname},
-                newname=#{newname}, 
-                path=#{path},
-                filesize=#{filesize}
-        WHERE boardid=#{boardid}
-    </update>
--->
 
     <delete id="removeContent" parameterType="int">
        DELETE FROM springp1.myboard WHERE boardid=#{boardid}

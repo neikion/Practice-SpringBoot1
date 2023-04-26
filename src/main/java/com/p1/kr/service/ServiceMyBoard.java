@@ -109,10 +109,6 @@ public class ServiceMyBoard implements IServiceMyBoard {
 				}
 			}
 		}
-		
-		
-		
-		
 		return board.getBoardid();
 	}
 
@@ -137,22 +133,19 @@ public class ServiceMyBoard implements IServiceMyBoard {
 		return result;
 	}
 
-	@Override
-	public void removeFile(int id) {
-		mapper.removeFile(id);
-		
-	}
-
 	
 	@Override
 	public void removeFiles(int id) {
 		List<DomainMyBoardFile> dbfile= mapper.getFileList(id);
+		System.out.println(dbfile.isEmpty());
+		System.out.println(dbfile);
+		
 		Path removepath;
 		try {
 			for(DomainMyBoardFile file:dbfile) {
 				removepath=Paths.get(file.getPath());
 				Files.deleteIfExists(removepath);
-				removeFile(file.getBoardid());
+				mapper.removeFile(file.getBoardid());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

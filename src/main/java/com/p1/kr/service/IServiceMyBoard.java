@@ -18,11 +18,9 @@ public interface IServiceMyBoard {
 	public int uploadFile(VOMyFileList vo, MultipartHttpServletRequest request, HttpServletRequest httpreq);
 	
 	public void removeContent(int id);
-	
-	public void removeFile(int id);
 	public void removeFiles(int id);
-	public DomainMyBoard getBoard(int boardid);
 	
+	public DomainMyBoard getBoard(int boardid);
 	public List<DomainMyBoardFile> getFileList(int boardid);
 	public DomainMyBoardFile getFile(int boardid);
 }

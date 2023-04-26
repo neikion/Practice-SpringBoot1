@@ -15,8 +15,7 @@ public interface IMapperMyUpload {
 	public void uploadContent(DomainMyBoard domain);
 	public void uploadFile(DomainMyBoardFile domain);
 	public void updateContent(DomainMyBoard domain);
-//	public void updateFile(DomainMyBoardFile domain);
-//
+	
 	public void removeContent(int id);
 	public void removeFile(int id);
 	
