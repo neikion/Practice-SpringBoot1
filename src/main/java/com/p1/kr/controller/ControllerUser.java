@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequestMapping(value="/")
-public class ContollerUser {
+public class ControllerUser {
 	@Autowired
 	private IServiceUser serviceUser;
 	@Autowired
